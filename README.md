@@ -1,4 +1,4 @@
 roolie
 ======
 
-fork of roolie from sourceforge
+fork of roolie from sourceforge.  for more info: http://roolie.sourceforge.net/
