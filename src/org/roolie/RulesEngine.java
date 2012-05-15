@@ -36,7 +36,7 @@ import org.xml.sax.InputSource;
 public class RulesEngine
 {
 
-  protected final RulesConfig rulesConfig;
+  private final RulesConfig rulesConfig;
 
   protected final RuleFactory ruleFactory;
 
@@ -51,43 +51,43 @@ public class RulesEngine
   public RulesEngine(String configURI)
   {
     this.rulesConfig = RulesConfigInitializer.initRulesConfig(configURI);
-    this.ruleFactory = initRuleFactory(this.rulesConfig);
-    this.ruleEvaluator = initRuleEvaluator(this.rulesConfig);
+    this.ruleFactory = initRuleFactory(this.getRulesConfig());
+    this.ruleEvaluator = initRuleEvaluator(this.getRulesConfig());
   }
 
   public RulesEngine(File configFile)
   {
     this.rulesConfig = RulesConfigInitializer.initRulesConfig(configFile);
-    this.ruleFactory = initRuleFactory(this.rulesConfig);
-    this.ruleEvaluator = initRuleEvaluator(this.rulesConfig);
+    this.ruleFactory = initRuleFactory(this.getRulesConfig());
+    this.ruleEvaluator = initRuleEvaluator(this.getRulesConfig());
   }
 
   public RulesEngine(InputStream configInputStream)
   {
     this.rulesConfig = RulesConfigInitializer.initRulesConfig(configInputStream);
-    this.ruleFactory = initRuleFactory(this.rulesConfig);
-    this.ruleEvaluator = initRuleEvaluator(this.rulesConfig);
+    this.ruleFactory = initRuleFactory(this.getRulesConfig());
+    this.ruleEvaluator = initRuleEvaluator(this.getRulesConfig());
   }
 
   public RulesEngine(InputSource configInputSource)
   {
     this.rulesConfig = RulesConfigInitializer.initRulesConfig(configInputSource);
-    this.ruleFactory = initRuleFactory(this.rulesConfig);
-    this.ruleEvaluator = initRuleEvaluator(this.rulesConfig);
+    this.ruleFactory = initRuleFactory(this.getRulesConfig());
+    this.ruleEvaluator = initRuleEvaluator(this.getRulesConfig());
   }
 
   public RulesEngine(Document configDcument)
   {
     this.rulesConfig = RulesConfigInitializer.initRulesConfig(configDcument);
-    this.ruleFactory = initRuleFactory(this.rulesConfig);
-    this.ruleEvaluator = initRuleEvaluator(this.rulesConfig);
+    this.ruleFactory = initRuleFactory(this.getRulesConfig());
+    this.ruleEvaluator = initRuleEvaluator(this.getRulesConfig());
   }
 
   public RulesEngine(Node configNode)
   {
     this.rulesConfig = RulesConfigInitializer.initRulesConfig(configNode);
-    this.ruleFactory = initRuleFactory(this.rulesConfig);
-    this.ruleEvaluator = initRuleEvaluator(this.rulesConfig);
+    this.ruleFactory = initRuleFactory(this.getRulesConfig());
+    this.ruleEvaluator = initRuleEvaluator(this.getRulesConfig());
   }
 
   /**
@@ -102,7 +102,7 @@ public class RulesEngine
 
     // Get the ruleDef and ensure it is not null
     RuleDefElmt ruleDef =
-      rulesConfig.getRuleDefinitionElmts().getRuleDefElmts().get(ruleName);
+      getRulesConfig().getRuleDefinitionElmts().getRuleDefElmts().get(ruleName);
     RUtil.assertNotNull(ruleDef, "There is no rule definition for " + ruleName);
 
     // Get all the RuleElmts of the ruleDef and make sure they aren't null or
@@ -212,6 +212,11 @@ public class RulesEngine
       ruleEvaluatorFactory.cachedInstance(ruleEvaluatorClass);
     return _ruleEvaluator;
   }
+
+public RulesConfig getRulesConfig()
+{
+	return rulesConfig;
+}
 }
 
 class RulesConfigInitializer
